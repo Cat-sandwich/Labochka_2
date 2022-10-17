@@ -1,11 +1,20 @@
 import os
 import csv
+import shutil
 
 
-def copy_dataset_to_new_dataset(path_laba_2):
+def copy_dataset_to_new_dataset(path_dataset, path_txt_old, path_txt_new):
 
-    if not os.path.isdir("new_dataset"):
-        os.mkdir("new_dataset")
+    name_folder = "new_dataset"
+
+    if not os.path.isdir(name_folder):
+        os.mkdir(name_folder)
+    
+    for i in range(1, len(path_txt_old)):
+        print(path_dataset + str(path_txt_old[i]))
+        print( name_folder + str(path_txt_new[i]))
+        shutil.copyfile(path_dataset + str(path_txt_old[i]), name_folder + str(path_txt_new[i]))
+    
     
 
 
@@ -32,4 +41,5 @@ if __name__ == "__main__":
     print(path_dataset)
     path_txt_old = find_path_txt (path_dataset, '\\')
     path_txt_new = find_path_txt (path_dataset, '_')
+    copy_dataset_to_new_dataset(path_dataset, path_txt_old, path_txt_new)
     print("Готово!")
