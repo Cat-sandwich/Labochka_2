@@ -5,17 +5,26 @@ import shutil
 
 def copy_dataset_to_new_dataset(path_dataset, path_txt_old, path_txt_new):
 
-    name_folder = "new_dataset"
+    name_folder = "dataset_new"
 
     if not os.path.isdir(name_folder):
         os.mkdir(name_folder)
     
     for i in range(1, len(path_txt_old)):
-        print(path_dataset + str(path_txt_old[i]))
-        print( name_folder + str(path_txt_new[i]))
         shutil.copyfile(path_dataset + str(path_txt_old[i]), name_folder + str(path_txt_new[i]))
     
-    
+def add_to_csv (path_dataset, paths_txt):
+    print("hey")
+    with open('dataset_new.csv','w+', encoding='utf-8', newline='') as file:
+        writer = csv.writer(file, delimiter=';')
+        writer.writerow(["Absolute path", "Relative path", "Class"])
+
+        for i in range (1, len(paths_txt)):
+            class_txt = str(paths_txt[i]).split('\\')
+            class_txt = str(class_txt[1]).split('_')
+            print(class_txt[0])
+            writer.writerow([f'{ (path_dataset + str(paths_txt[i])).replace(" ","")}', f'..\\dataset{(str(paths_txt[i])).replace(" ","")}', f'{class_txt[0]}'])
+            print(i)
 
 
 def find_path_txt (path_dataset, delimiter):
@@ -41,5 +50,6 @@ if __name__ == "__main__":
     print(path_dataset)
     path_txt_old = find_path_txt (path_dataset, '\\')
     path_txt_new = find_path_txt (path_dataset, '_')
-    copy_dataset_to_new_dataset(path_dataset, path_txt_old, path_txt_new)
+    #copy_dataset_to_new_dataset(path_dataset, path_txt_old, path_txt_new)
+    add_to_csv (path_dataset, path_txt_new)
     print("Готово!")
