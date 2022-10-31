@@ -1,27 +1,17 @@
-from genericpath import isdir
-import os
+from iterator import Iterator
 
 
-def get_path_dataset ( folder_name, id, class_name ):
-   
-    return os.path.abspath(f'{(folder_name)}' + f'\\{class_name}' + f'\\{id:04}.txt' )
+def get_path(file_name, class_name):
 
-def get_path_dataset_new ( folder_name, id, class_name ):
-   
-    return os.path.abspath(f'{(folder_name)}' + f'{class_name}' + f'\\{id:04}.txt' )
+    i = Iterator(file_name, class_name)
+    for val in i:
+        if (val != None):
+            print(val)
 
-def get_path_dataset_new ( folder_name, id, class_name = None):
-   
-    return os.path.abspath(f'{(folder_name)}' + f'\\{id:04}.txt' )
-
+    print('Готово')
 
 
 if __name__ == "__main__":
-
-    class_name = ['good', 'bad']
-
-    path_laba_2 = os.getcwd()
-    contend = os.listdir(path_laba_2)
-    for folder_name in contend:
-        if os.path.isdir(folder_name) and folder_name.find('.', 0, 1) :
-            print(folder_name)
+    file_name = 'dataset.csv'
+    class_name = 'good'
+    get_path(file_name, class_name)
